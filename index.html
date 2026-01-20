@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>تحليل المشاعر - ONNX</title>
+  <script type="module">
+    import * as transformers from 'https://cdn.jsdelivr.net/npm/@xenova/transformers@2.3.0/dist/transformers.min.js';
+
+    async function run() {
+      const classifier = await transformers.pipeline(
+        "text-classification",
+        "./models/bert-base-multilingual-uncased-sentiment-ONNX"
+      );
+
+      const texts = [
+        "أنا أحب تعلم الذكاء الاصطناعي!",
+        "هذا صعب للغاية 😞"
+      ];
+
+      for (const text of texts) {
+        const result = await classifier(text);
+        console.log(text, "→", result);
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', run);
+  </script>
+</head>
+<body>
+  <h1>تحليل المشاعر</h1>
+  <p>افتح وحدة التحكم (Console) لترى نتائج التحليل.</p>
+</body>
+</html>
